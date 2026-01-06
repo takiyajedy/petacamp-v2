@@ -1,0 +1,125 @@
+// Import Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+// Import Leaflet CSS
+@import 'leaflet/dist/leaflet.css';
+
+// Import SweetAlert2 CSS
+@import 'sweetalert2/dist/sweetalert2.min.css';
+
+// Custom Variables
+$primary-color: #2c5f2d;
+$secondary-color: #97bc62;
+
+// SweetAlert2 Custom Styling
+.swal2-popup {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.swal2-title {
+    color: #2c3e50;
+}
+
+.swal2-confirm {
+    background-color: $primary-color !important;
+    
+    &:focus {
+        box-shadow: 0 0 0 3px rgba(44, 95, 45, 0.4) !important;
+    }
+}
+
+// Custom Styles
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    color: $primary-color !important;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #2c5f2d 0%, #97bc62 100%);
+    color: white;
+    padding: 80px 0;
+    
+    h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+    
+    p {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+    }
+}
+
+.camp-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+    
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    img {
+        height: 200px;
+        object-fit: cover;
+    }
+}
+
+.amenity-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin: 0.25rem;
+    background: #f8f9fa;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    
+    i {
+        margin-right: 0.5rem;
+    }
+}
+
+// Map Container
+.map-container {
+    height: 600px;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    
+    // Make sure Leaflet map takes full size
+    .leaflet-container {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+// Admin Panel Styles
+.admin-sidebar {
+    background: #2c3e50;
+    min-height: 100vh;
+    padding: 2rem 0;
+    
+    .nav-link {
+        color: #ecf0f1;
+        padding: 0.75rem 1.5rem;
+        
+        &:hover, &.active {
+            background: #34495e;
+            color: white;
+        }
+    }
+}
+
+.stat-card {
+    border-left: 4px solid;
+    
+    &.stat-primary { border-color: #007bff; }
+    &.stat-success { border-color: #28a745; }
+    &.stat-warning { border-color: #ffc107; }
+    &.stat-danger { border-color: #dc3545; }
+}

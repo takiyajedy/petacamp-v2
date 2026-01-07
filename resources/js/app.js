@@ -14,6 +14,8 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import iconRetina from 'leaflet/dist/images/marker-icon-2x.png';
 
+import './auth-modals';
+
 let DefaultIcon = L.icon({
     iconUrl: icon,
     shadowUrl: iconShadow,
@@ -26,6 +28,62 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 window.L = L;
+
+// ========================================
+// DARK MODE
+// ========================================
+
+class DarkMode {
+    constructor() {
+        this.theme = localStorage.getItem('theme') || 'light';
+        this.init();
+    }
+
+    init() {
+        this.setTheme(this.theme);
+        this.attachEventListeners();
+    }
+
+    setTheme(theme) {
+        this.theme = theme;
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        this.updateButton();
+    }
+
+    toggleTheme() {
+        const newTheme = this.theme === 'light' ? 'dark' : 'light';
+        this.setTheme(newTheme);
+    }
+
+    updateButton() {
+        const btn = document.getElementById('darkModeToggle');
+        if (!btn) return;
+
+        const icon = btn.querySelector('i');
+        const text = btn.querySelector('.toggle-text');
+        
+        if (this.theme === 'dark') {
+            icon.className = 'fas fa-sun';
+            if (text) text.textContent = 'Light';
+        } else {
+            icon.className = 'fas fa-moon';
+            if (text) text.textContent = 'Dark';
+        }
+    }
+
+    attachEventListeners() {
+        const btn = document.getElementById('darkModeToggle');
+        if (btn) {
+            btn.addEventListener('click', () => this.toggleTheme());
+        }
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    window.darkMode = new DarkMode();
+});
 
 // Initialize Bootstrap tooltips
 document.addEventListener('DOMContentLoaded', function() {

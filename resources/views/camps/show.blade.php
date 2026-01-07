@@ -53,7 +53,7 @@
                         <div class="row g-2">
                             @foreach($camp->amenities as $amenity)
                                 <div class="col-md-6">
-                                    <div class="amenity-badge">
+                                    <div  class="amenity-badge">
                                         <i class="fas {{ $amenity->icon }}"></i>
                                         {{ $amenity->label_bm }}
                                     </div>

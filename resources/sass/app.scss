@@ -7,6 +7,38 @@
 // Import SweetAlert2 CSS
 @import 'sweetalert2/dist/sweetalert2.min.css';
 
+// ========================================
+// DARK MODE VARIABLES
+// ========================================
+
+// Light Theme
+:root {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8f9fa;
+    --bg-card: #ffffff;
+    --text-primary: #212529;
+    --text-secondary: #6c757d;
+    --text-muted: #6c757d;
+    --border-color: #dee2e6;
+    --primary-color: #2c5f2d;
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --btn-close-filter: none; // ✅ NEW
+}
+
+// Dark Theme
+[data-theme="dark"] {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --bg-card: #242424;
+    --text-primary: #e9ecef;
+    --text-secondary: #adb5bd;
+    --text-muted: #6c757d;
+    --border-color: #3d3d3d;
+    --primary-color: #4a9d4d;
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --btn-close-filter: invert(1) grayscale(100%) brightness(200%); // ✅ NEW
+}
+
 // Custom Variables
 $primary-color: #2c5f2d;
 $secondary-color: #97bc62;
@@ -31,6 +63,158 @@ $secondary-color: #97bc62;
 // Custom Styles
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.9rem; // Default 1rem → 0.9rem (smaller)
+    line-height: 1.6;
+    font-weight: 400;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Headings - Modern & Sleek
+h1, .h1 {
+    font-size: 2rem; // Default 2.5rem
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+h2, .h2 {
+    font-size: 1.65rem; // Default 2rem
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+h3, .h3 {
+    font-size: 1.4rem; // Default 1.75rem
+    font-weight: 600;
+}
+
+h4, .h4 {
+    font-size: 1.2rem; // Default 1.5rem
+    font-weight: 600;
+}
+
+h5, .h5 {
+    font-size: 1.05rem; // Default 1.25rem
+    font-weight: 600;
+}
+
+h6, .h6 {
+    font-size: 0.95rem; // Default 1rem
+    font-weight: 600;
+}
+
+// Lead text
+.lead {
+    font-size: 1.15rem; // Default 1.25rem
+    font-weight: 400;
+}
+
+// Small text
+small, .small {
+    font-size: 0.8rem; // Default 0.875rem
+}
+
+// Text utilities
+.text-muted {
+    color: var(--text-muted) !important;
+    font-size: 0.85rem;
+}
+
+.card {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.navbar {
+    padding: 0.5rem 0; // More compact
+    background-color: var(--bg-primary) !important;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    
+    .navbar-brand {
+        font-size: 1.3rem; // Smaller logo
+        font-weight: 700;
+        color: var(--primary-color) !important;
+        letter-spacing: -0.01em;
+    }
+    
+    .nav-link {
+        font-size: 0.9rem; // Smaller nav items
+        font-weight: 500;
+        color: var(--text-primary) !important;
+        padding: 0.5rem 1rem;
+        transition: all 0.2s ease;
+        
+        &:hover {
+            color: var(--primary-color) !important;
+        }
+        
+        &.active {
+            color: var(--primary-color) !important;
+            font-weight: 600;
+        }
+        
+        i {
+            font-size: 0.85rem;
+            margin-right: 0.3rem;
+        }
+    }
+}
+
+
+.dropdown-menu {
+    background-color: var(--bg-card);
+    border-color: var(--border-color);
+    
+    .dropdown-item {
+        color: var(--text-primary);
+        
+        &:hover {
+            background-color: var(--bg-secondary);
+        }
+    }
+}
+
+.form-control,
+.form-select {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+    
+    &:focus {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+    }
+}
+
+.table {
+    color: var(--text-primary);
+    
+    td, th {
+        border-color: var(--border-color);
+    }
+}
+
+.modal-content {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
+
+// Dark Mode Toggle Button
+.dark-mode-toggle {
+    background: transparent;
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        background-color: var(--bg-secondary);
+    }
 }
 
 .navbar-brand {
@@ -122,4 +306,729 @@ body {
     &.stat-success { border-color: #28a745; }
     &.stat-warning { border-color: #ffc107; }
     &.stat-danger { border-color: #dc3545; }
+}
+
+// ========================================
+// AUTH MODALS
+// ========================================
+
+.modal {
+    &.fade .modal-dialog {
+        transition: transform 0.3s ease-out;
+        transform: scale(0.8);
+    }
+    
+    &.show .modal-dialog {
+        transform: scale(1);
+    }
+}
+
+.modal-content {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.modal-header {
+    padding: 1.5rem 1.5rem 0;
+    border-color: var(--border-color);
+    
+    .modal-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+    
+    .btn-close {
+        filter: var(--btn-close-filter);
+    }
+}
+
+.modal-body {
+    padding: 1.5rem;
+    
+    form {
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary) !important; // ✅ IMPORTANT: Force text color
+            
+            i {
+                color: var(--primary-color);
+                width: 20px;
+            }
+        }
+        
+        .form-control-lg {
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            border-radius: 10px;
+            border: 2px solid var(--border-color);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            
+            &:focus {
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 0.2rem rgba(44, 95, 45, 0.15);
+                background-color: var(--bg-primary);
+                color: var(--text-primary);
+            }
+            
+            &::placeholder {
+                color: var(--text-muted);
+            }
+        }
+        
+        .form-check-label {
+            color: var(--text-primary);
+        }
+        
+        .text-muted {
+            color: var(--text-muted) !important;
+        }
+        
+        .btn-lg {
+            padding: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(44, 95, 45, 0.3);
+            }
+        }
+        
+        a {
+            color: var(--primary-color);
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+// Dark mode specific adjustments
+[data-theme="dark"] {
+    .modal-content {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+    
+    .modal-header {
+        .btn-close {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+    }
+    
+    .modal-body {
+        .form-label {
+            color: #e9ecef !important; // ✅ Force white text in dark mode
+        }
+        
+        .text-muted {
+            color: #adb5bd !important;
+        }
+    }
+}
+
+// Light mode - ensure good contrast
+[data-theme="light"] {
+    .modal-body {
+        .form-label {
+            color: #212529 !important; // ✅ Force dark text in light mode
+        }
+    }
+}
+
+// Google OAuth Button
+.btn-outline-danger {
+    border: 2px solid #ea4335;
+    color: #ea4335;
+    background: transparent;
+    
+    &:hover {
+        background: #ea4335;
+        color: white;
+        border-color: #ea4335;
+    }
+    
+    i.fab {
+        margin-right: 0.5rem;
+    }
+}
+
+[data-theme="dark"] {
+    .btn-outline-danger {
+        &:hover {
+            background: #ea4335;
+            color: white;
+        }
+    }
+}
+
+// ========================================
+// BUTTONS - Modern & Sleek
+// ========================================
+
+.btn {
+    font-size: 0.9rem; // Smaller buttons
+    font-weight: 500;
+    padding: 0.5rem 1.2rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    letter-spacing: 0.01em;
+    
+    i {
+        font-size: 0.85rem;
+    }
+}
+
+.btn-sm {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.9rem;
+}
+
+.btn-lg {
+    font-size: 1rem;
+    padding: 0.7rem 1.5rem;
+}
+
+// ========================================
+// CARDS - Modern & Clean
+// ========================================
+
+.card {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+    box-shadow: var(--shadow);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    
+    .card-header {
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 1rem 1.25rem;
+        background-color: transparent;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    .card-body {
+        padding: 1.25rem;
+        font-size: 0.9rem;
+    }
+    
+    .card-text {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+}
+
+// ========================================
+// FORMS - Clean & Modern
+// ========================================
+
+.form-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    color: var(--text-primary);
+}
+
+.form-control,
+.form-select {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.9rem;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+    border-radius: 8px;
+    
+    &:focus {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        border-color: var(--primary-color);
+    }
+    
+    &::placeholder {
+        color: var(--text-muted);
+        font-size: 0.85rem;
+    }
+}
+
+.form-control-sm {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.7rem;
+}
+
+.form-control-lg {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+}
+
+.form-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+// Checkboxes and Radio buttons
+.form-check {
+    margin-bottom: 0.75rem;
+    
+    .form-check-input {
+        width: 1.2em;
+        height: 1.2em;
+        margin-top: 0.15em;
+        border: 2px solid var(--border-color);
+        cursor: pointer;
+        
+        &:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        &:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(44, 95, 45, 0.25);
+        }
+    }
+    
+    .form-check-label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--text-primary) !important; // ✅ Force visible color
+        cursor: pointer;
+        margin-left: 0.25rem;
+        
+        i {
+            color: var(--primary-color);
+            margin-right: 0.4rem;
+            font-size: 0.9rem;
+        }
+    }
+}
+
+// ========================================
+// AMENITIES FILTER SECTION
+// ========================================
+
+// Amenity Badge Dark Mode Fix
+.amenity-badge {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 0.4rem 0.75rem;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin: 0.25rem;
+}
+
+.amenity-badge i {
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+}
+
+[data-theme="dark"] .amenity-badge {
+    background-color: #2d2d2d;
+    color: #e9ecef;
+    border-color: #3d3d3d;
+}
+
+[data-theme="light"] .amenity-badge {
+    background-color: #f8f9fa;
+    color: #212529;
+    border-color: #dee2e6;
+}
+
+// ========================================
+// DARK MODE ADJUSTMENTS
+// ========================================
+
+[data-theme="dark"] {
+    .form-check-label {
+        color: #212529 !important; // White text in dark mode
+    }
+    
+    .form-check-input {
+        background-color: var(--bg-primary);
+        border-color: var(--border-color);
+        
+        &:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+    }
+}
+
+// ========================================
+// LIGHT MODE - ENSURE DARK TEXT
+// ========================================
+
+[data-theme="light"] {
+    .form-check-label {
+        color: #212529 !important; // Dark text in light mode
+    }
+}
+
+// ========================================
+// TABLES - Compact & Modern
+// ========================================
+
+.table {
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    
+    thead {
+        th {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.75rem 0.75rem;
+            border-color: var(--border-color);
+        }
+    }
+    
+    tbody {
+        td {
+            padding: 0.75rem 0.75rem;
+            border-color: var(--border-color);
+            vertical-align: middle;
+        }
+    }
+    
+    &.table-sm {
+        font-size: 0.8rem;
+        
+        th, td {
+            padding: 0.5rem 0.5rem;
+        }
+    }
+}
+
+// ========================================
+// BADGES - Modern & Clean
+// ========================================
+
+.badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+    border-radius: 6px;
+    letter-spacing: 0.02em;
+}
+
+// ========================================
+// MODALS - Clean Typography
+// ========================================
+
+.modal {
+    .modal-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+    }
+    
+    .modal-body {
+        font-size: 0.9rem;
+        
+        .form-label {
+            font-size: 0.85rem;
+        }
+        
+        .btn-lg {
+            font-size: 0.95rem;
+        }
+    }
+}
+
+// ========================================
+// DROPDOWN - Compact
+// ========================================
+
+.dropdown-menu {
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+    background-color: var(--bg-card);
+    border-color: var(--border-color);
+    box-shadow: var(--shadow-lg);
+    border-radius: 10px;
+    
+    .dropdown-item {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        color: var(--text-primary);
+        
+        &:hover {
+            background-color: var(--bg-secondary);
+        }
+        
+        i {
+            font-size: 0.85rem;
+            width: 20px;
+        }
+    }
+    
+    .dropdown-header {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0.5rem 1rem;
+    }
+}
+
+// ========================================
+// ALERTS - Modern
+// ========================================
+
+.alert {
+    font-size: 0.9rem;
+    padding: 0.9rem 1.1rem;
+    border-radius: 10px;
+    
+    .alert-heading {
+        font-size: 1rem;
+        font-weight: 600;
+    }
+}
+
+// ========================================
+// PAGINATION - Compact
+// ========================================
+
+.pagination {
+    .page-link {
+        font-size: 0.85rem;
+        padding: 0.45rem 0.75rem;
+        border-radius: 6px;
+    }
+}
+
+// ========================================
+// BREADCRUMB - Small
+// ========================================
+
+.breadcrumb {
+    font-size: 0.85rem;
+    
+    .breadcrumb-item {
+        + .breadcrumb-item::before {
+            font-size: 0.8rem;
+        }
+    }
+}
+
+// ========================================
+// CAMP CARD - Modern & Clean
+// ========================================
+
+.camp-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    
+    &:hover {
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-4px);
+    }
+    
+    .camp-card-body {
+        padding: 1rem;
+    }
+    
+    .camp-card-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+        line-height: 1.3;
+    }
+    
+    .camp-card-text {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+    }
+    
+    .text-muted {
+        font-size: 0.8rem;
+    }
+    
+    .text-primary {
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+}
+
+// ========================================
+// HERO SECTION - Balanced
+// ========================================
+
+.hero-section {
+    padding: 3rem 0; // Reduced from 4rem
+    
+    h1 {
+        font-size: 2.2rem; // Reduced
+        font-weight: 700;
+        letter-spacing: -0.02em;
+    }
+    
+    .lead {
+        font-size: 1.05rem; // Reduced
+        font-weight: 400;
+    }
+    
+    .form-control,
+    .form-select {
+        font-size: 0.9rem;
+    }
+}
+
+// ========================================
+// FOOTER - Compact
+// ========================================
+
+footer {
+    font-size: 0.85rem;
+    padding: 2.5rem 0; // Reduced
+    background-color: var(--bg-secondary) !important;
+    
+    h5 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+    
+    h6 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+    }
+    
+    p, li {
+        font-size: 0.85rem;
+    }
+    
+    a {
+        font-size: 0.85rem;
+    }
+}
+
+// ========================================
+// ADMIN PANEL - Compact
+// ========================================
+
+.admin-sidebar {
+    font-size: 0.9rem;
+    
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 0.6rem 1rem;
+    }
+}
+
+// ========================================
+// RESPONSIVE - Mobile Adjustments
+// ========================================
+
+@media (max-width: 768px) {
+    body {
+        font-size: 0.85rem; // Even smaller on mobile
+    }
+    
+    h1, .h1 {
+        font-size: 1.75rem;
+    }
+    
+    h2, .h2 {
+        font-size: 1.5rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem !important;
+    }
+    
+    .hero-section {
+        padding: 2rem 0;
+        
+        h1 {
+            font-size: 1.8rem;
+        }
+        
+        .lead {
+            font-size: 0.95rem;
+        }
+    }
+}
+
+// ========================================
+// UTILITY CLASSES
+// ========================================
+
+.text-xs {
+    font-size: 0.7rem;
+}
+
+.text-sm {
+    font-size: 0.8rem;
+}
+
+.text-base {
+    font-size: 0.9rem;
+}
+
+.text-lg {
+    font-size: 1.1rem;
+}
+
+.text-xl {
+    font-size: 1.3rem;
+}
+
+// Universal Form Labels Fix
+label,
+.form-label,
+.form-check-label {
+    color: var(--text-primary) !important;
+    font-weight: 500;
+}
+
+label i,
+.form-label i,
+.form-check-label i {
+    color: var(--primary-color);
+    margin-right: 0.5rem;
+}
+
+[data-theme="dark"] {
+    label,
+    .form-label,
+    .form-check-label {
+        color: #e9ecef !important;
+    }
+}
+
+[data-theme="light"] {
+    label,
+    .form-label,
+    .form-check-label {
+        color: #212529 !important;
+    }
 }

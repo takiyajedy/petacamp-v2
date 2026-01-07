@@ -34,7 +34,7 @@
             </div>
             <div class="col-md-2">
                 <button type="submit" class="btn btn-light btn-lg w-100">
-                    <i class="fas fa-search"></i> Cari
+                    <i class="fas fa-search"></i> {{ __('app.camp.search_button') }}
                 </button>
             </div>
         </form>
@@ -42,7 +42,7 @@
 </section>
 
 <!-- Filter Section -->
-<section class="py-4 bg-light">
+<section class="py-4">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h5 class="mb-0">Kemudahan</h5>

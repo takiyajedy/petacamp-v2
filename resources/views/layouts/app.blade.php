@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'PetaCamp') }} - @yield('title', 'Direktori Tapak Perkhemahan Malaysia')</title>
+    <title>{{ config('app.name', 'PetaCamp') }} - @yield('title', __('app.camp.title'))</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -14,14 +15,17 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- SweetAlert2 CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
     <!-- Leaflet CSS (CDN for safety) -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
-          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
-          crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
@@ -29,28 +33,32 @@
             <a class="navbar-brand" href="{{ route('camps.index') }}">
                 <i class="fas fa-campground"></i> <strong>PetaCamp</strong>
             </a>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <!-- Left Side Menu -->
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('camps.index') ? 'active' : '' }}" href="{{ route('camps.index') }}">
-                            <i class="fas fa-compass"></i> Explore
+                        <a class="nav-link {{ request()->routeIs('camps.index') ? 'active' : '' }}"
+                            href="{{ route('camps.index') }}">
+                            <i class="fas fa-compass"></i> {{ __('app.nav.explore') }}
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('camps.map') ? 'active' : '' }}" href="{{ route('camps.map') }}">
-                            <i class="fas fa-map"></i> Map
+                        <a class="nav-link {{ request()->routeIs('camps.map') ? 'active' : '' }}"
+                            href="{{ route('camps.map') }}">
+                            <i class="fas fa-map"></i> {{ __('app.nav.map') }}
                         </a>
                     </li>
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('submissions.create') ? 'active' : '' }}" href="{{ route('submissions.create') }}">
-                                <i class="fas fa-plus-circle"></i> Contribute
+                            <a class="nav-link {{ request()->routeIs('submissions.create') ? 'active' : '' }}"
+                                href="{{ route('submissions.create') }}">
+                                <i class="fas fa-plus-circle"></i> {{ __('app.nav.contribute') }}
                             </a>
                         </li>
                     @endauth
@@ -58,42 +66,93 @@
 
                 <!-- Right Side Menu -->
                 <ul class="navbar-nav ms-auto">
+
+                    <!-- ✅ TAMBAH INI - Dark Mode Toggle -->
+                    <li class="nav-item">
+                        <button id="darkModeToggle" class="nav-link btn btn-link dark-mode-toggle"
+                            aria-label="Toggle dark mode">
+                            <i class="fas fa-moon"></i>
+                            <span class="d-none d-md-inline ms-1 toggle-text">Dark</span>
+                        </button>
+                    </li>
+                    <!-- ✅ END TAMBAH -->
+
+
+                    <!-- Language Switcher -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-globe"></i>
+                            @if (app()->getLocale() == 'ms')
+                                <span class="d-none d-md-inline">BM</span>
+                            @else
+                                <span class="d-none d-md-inline">EN</span>
+                            @endif
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                            <li>
+                                <a class="dropdown-item {{ app()->getLocale() == 'en' ? 'active' : '' }}"
+                                    href="{{ route('language.switch', 'en') }}">
+                                    <i class="fas fa-check {{ app()->getLocale() == 'en' ? '' : 'invisible' }}"></i>
+                                    English
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item {{ app()->getLocale() == 'ms' ? 'active' : '' }}"
+                                    href="{{ route('language.switch', 'ms') }}">
+                                    <i class="fas fa-check {{ app()->getLocale() == 'ms' ? '' : 'invisible' }}"></i>
+                                    Bahasa Melayu
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}" href="{{ route('login') }}">
-                                <i class="fas fa-sign-in-alt"></i> Login
+                            <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                <i class="fas fa-sign-in-alt"></i> {{ __('app.nav.login') }}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary text-white ms-2 {{ request()->routeIs('register') ? 'active' : '' }}" href="{{ route('register') }}">
-                                <i class="fas fa-user-plus"></i> Register
+                            <a class="nav-link btn btn-primary text-white ms-2" href="#" data-bs-toggle="modal"
+                                data-bs-target="#registerModal">
+                                <i class="fas fa-user-plus"></i> {{ __('app.nav.register') }}
                             </a>
                         </li>
                     @else
-                        @if(auth()->user()->isAdmin())
+                        @if (auth()->user()->isAdmin())
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->routeIs('admin.*') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
-                                    <i class="fas fa-shield-alt"></i> Admin
+                                <a class="nav-link {{ request()->routeIs('admin.*') ? 'active' : '' }}"
+                                    href="{{ route('admin.dashboard') }}">
+                                    <i class="fas fa-shield-alt"></i> {{ __('app.nav.dashboard') }}
                                 </a>
                             </li>
                         @endif
-                        
+
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-user-circle"></i> {{ Auth::user()->name }}
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-bs-toggle="dropdown">
+                                @if (Auth::user()->avatar)
+                                    <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}"
+                                        class="rounded-circle me-1" style="width: 30px; height: 30px; object-fit: cover;">
+                                @else
+                                    <i class="fas fa-user-circle"></i>
+                                @endif
+                                {{ Auth::user()->name }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li>
-                                    <a class="dropdown-item" href="">
-                                        <i class="fas fa-user"></i> Profile
+                                    <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                                        <i class="fas fa-user"></i> {{ __('app.nav.profile') }}
                                     </a>
                                 </li>
-                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <button type="submit" class="dropdown-item text-danger">
-                                            <i class="fas fa-sign-out-alt"></i> Log Keluar
+                                            <i class="fas fa-sign-out-alt"></i> {{ __('app.nav.logout') }}
                                         </button>
                                     </form>
                                 </li>
@@ -105,8 +164,8 @@
         </div>
     </nav>
 
- <!-- SweetAlert Flash Messages -->
-    @if(session('success'))
+    <!-- SweetAlert Flash Messages -->
+    @if (session('success'))
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 Swal.fire({
@@ -122,7 +181,7 @@
         </script>
     @endif
 
-    @if(session('error'))
+    @if (session('error'))
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 Swal.fire({
@@ -136,13 +195,13 @@
         </script>
     @endif
 
-    @if($errors->any())
+    @if ($errors->any())
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Terdapat Masalah',
-                    html: '<ul class="text-start mb-0">@foreach($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>',
+                    html: '<ul class="text-start mb-0">@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>',
                     confirmButtonColor: '#dc3545',
                     confirmButtonText: 'OK'
                 });
@@ -161,7 +220,8 @@
             <div class="row">
                 <div class="col-md-4">
                     <h5><i class="fas fa-campground"></i> PetaCamp</h5>
-                    <p class="small">Direktori tapak perkhemahan terlengkap di Malaysia. Cari, kongsi, dan nikmati pengalaman camping anda!</p>
+                    <p class="small">Direktori tapak perkhemahan terlengkap di Malaysia. Cari, kongsi, dan nikmati
+                        pengalaman camping anda!</p>
                 </div>
                 <div class="col-md-4">
                     <h6>Quick Links</h6>
@@ -188,10 +248,16 @@
 
     <!-- Leaflet JS (CDN) -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-            crossorigin=""></script>
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Auth Modals -->
+    @guest
+        @include('components.login-modal')
+        @include('components.register-modal')
+    @endguest
 
     <!-- Additional Scripts -->
     @stack('scripts')
 </body>
+
 </html>

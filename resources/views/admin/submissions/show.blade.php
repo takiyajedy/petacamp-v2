@@ -244,7 +244,7 @@ window.rejectSubmission = async function(route, csrfToken) {
 
                 <!-- Pricing -->
                 @if(isset($submission->data['price_per_night']) || isset($submission->data['price_per_person']))
-                    <h6 class="mt-4">Harga</h6>
+                    {{-- <h6 class="mt-4">Harga</h6>
                     <div class="row">
                         <div class="col-md-6">
                             <p><strong>Harga per malam:</strong> RM{{ number_format($submission->data['price_per_night'] ?? 0, 2) }}</p>
@@ -252,7 +252,7 @@ window.rejectSubmission = async function(route, csrfToken) {
                         <div class="col-md-6">
                             <p><strong>Harga per orang:</strong> RM{{ number_format($submission->data['price_per_person'] ?? 0, 2) }}</p>
                         </div>
-                    </div>
+                    </div> --}}
                 @endif
 
                 <!-- Capacity -->

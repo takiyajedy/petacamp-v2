@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'PetaCamp') }} - @yield('title', __('app.camp.title'))</title>
+    <title>{{ config('app.name', 'PortCamp') }} - @yield('title', __('app.camp.title'))</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -31,7 +31,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ route('camps.index') }}">
-                <i class="fas fa-campground"></i> <strong>PetaCamp</strong>
+                <i class="fas fa-campground"></i> <strong>PortCamp</strong>
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"

@@ -111,9 +111,9 @@
                                 </p>
                                 
                                 @if($camp->price_per_night)
-                                    <p class="card-text">
+                                    {{-- <p class="card-text">
                                         <strong>RM{{ number_format($camp->price_per_night, 2) }}</strong> / malam
-                                    </p>
+                                    </p> --}}
                                 @endif
                                 
                                 <!-- Amenities -->

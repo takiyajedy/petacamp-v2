@@ -134,11 +134,11 @@
 
                         <!-- Pricing -->
                         @if($camp->price_per_night)
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <h6><i class="fas fa-dollar-sign"></i> Harga</h6>
                                 <p class="h4 text-primary">RM{{ number_format($camp->price_per_night, 2) }}</p>
                                 <p class="small text-muted">per malam</p>
-                            </div>
+                            </div> --}}
                         @endif
 
                         <!-- Capacity -->
